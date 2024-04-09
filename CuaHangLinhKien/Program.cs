@@ -45,10 +45,10 @@ builder.Services.AddRazorPages();
 
 
 var app = builder.Build();
-app.MapControllerRoute(
-		  name: "admin",
-		  pattern: "{area:exists}/{controller=Product}/{action=Index}/{id?}"
-	  );
+//app.MapControllerRoute(
+//		  name: "admin",
+//		  pattern: "{area:exists}/{controller=Product}/{action=Index}/{id?}"
+//	  );
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -69,9 +69,22 @@ app.UseAuthorization();
 app.UseAuthorization();
 
 app.MapRazorPages();
-app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "admin",
+        pattern: "{area:exists}/{controller=Product}/{action=Index}/{id?}"
+    );
+
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
+});
+
+//app.MapControllerRoute(
+//	name: "default",
+//	pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
 

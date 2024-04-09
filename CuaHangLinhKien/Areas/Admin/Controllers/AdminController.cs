@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CuaHangLinhKien.Areas.Admin.Controllers
 {
-    [Area("Admin")]//attribute '[Area("Admin")]'
+    [Area("Admin")]//attribute '[Area("Admin                                                                                    ")]'
     [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {

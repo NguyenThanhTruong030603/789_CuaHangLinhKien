@@ -3,43 +3,35 @@
 		ViewData["Title"] = "Home Page";
 	}
 
-	<div>
-		<div class="small-container">
-			<h2 class="title">Danh Sach San Pham</h2>
-			<div class="row">
-				<div_style ="display: flex">
-					@foreach (var product in Model)
-					{
-						<div class="col-4">
-							@if (!string.IsNullOrEmpty(product.ImageUrl))
-							{
-								<img src="@product.ImageUrl">
-							}
-
-							else
-							{
-								<span>No Image</span>
-							}
-
-
-							<h4 style="text-align: center">@product.Name</h4>
-							<h5 style="text-align: center">@product.Description</h5>
-							<h5 style="text-align: center">@product.Price</h5>
-							<div class="rating" style="text-align:center">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star-o"></i>
-							</div>
-							<!-- Thêm vào giỏ hàng -->
-							<form method="post" action="@Url.Action("AddToCart", "ShoppingCart")">
-								<input type="hidden" name="productId" value="@product.Id" />
-								<input type="hidden" name="quantity" value="1" />
-								<button type="submit" class="btn-add-to-cart">Thêm vào giỏ hàng</button>
-							</form>
-						</div>
-					}
-			</div>
-		</div>
-	</div>
+<section class="py-2">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justifycontent-center">
+            @foreach (var item in Model)
+            {
+                <div class="col mb-5">
+                    <div class="card gap-3" style="width: 18rem">
+                        <img src="@item.ImageUrl" class="card-img-top" alt="..."
+                             style="height: 300px">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </h5>
+                            <div class="d-flex">
+                                <span>Price: </span>
+                                <p class="mx-3">@item.Price.ToString("#,##0") Vnđ</p>
+                            </div>
+                            <!-- Thêm vào giỏ hàng -->
+                            <form method="post" action="@Url.Action("AddToCart", "ShoppingCart")">
+                                <input type="hidden" name="productId" value="@item.Id" />
+                                <input type="hidden" name="quantity" value="1" />
+                                <button class="btn btn-outline-dark">
+                                    <i class="bi-cart-fill me-1"></i> Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

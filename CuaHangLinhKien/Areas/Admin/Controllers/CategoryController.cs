@@ -2,10 +2,13 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CuaHangLinhKien.Models;
 using CuaHangLinhKien.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
-namespace CuaHangLinhKien.Controllers
+namespace CuaHangLinhKien.Areas.Admin.Controllers
 {
-    public class CategoryController : Controller
+	[Area("Admin")]//attribute '[Area("Admin")]'
+	[Authorize(Roles = "Admin")]
+	public class CategoryController : Controller
     {
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
