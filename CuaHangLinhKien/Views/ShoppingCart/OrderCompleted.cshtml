@@ -1,3 +1,8 @@
-﻿
+﻿@model int
+@{
+    ViewData["Title"] = "OrderCompleted";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <h2>Order Completed</h2>
-<p>Your order has been placed successfully.</p>
+<p>Your order with ID @Model has been placed successfully.</p>

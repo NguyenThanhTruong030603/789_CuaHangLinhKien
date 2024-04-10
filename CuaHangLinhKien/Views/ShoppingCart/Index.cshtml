@@ -1,28 +1,51 @@
 ﻿@model ShoppingCart
 
-<h2>Giỏ hàng của bạn</h2>
-<table>
-	<tr>
-		<th>Product</th>
-		<th>Quantity</th>
-		<th>Price</th>
-		<th>Total</th>
-	</tr>
-	@foreach (var item in Model.Items)
-	{
-		<tr>
-			<td>@item.Name</td>
-			<td>@item.Quantity</td>
-			<td>@item.Price</td>
-			<td>@(item.Price * item.Quantity)</td>
-			<td>
-				<a asp-action="RemoveFromCart" asp-route-productId="@item.ProductId">Remove</a>
-			</td>
-		</tr>
-	}
+
+
 
 </table>
+
+
+<h2>Giỏ hàng của bạn</h2>
+
+<table class="table">
+    
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.Price</td>
+                <td>@(item.Price * item.Quantity)</td>
+
+
+                <td>
+                    <a asp-action="RemoveFromCart" asp-route-productId="@item.ProductId">Remove</a>
+                </td>
+
+               
+
+              
+            </tr>
+        }
+
+        
+    </tbody>
+
+    
+</table>
+
 <div style="display: flex">
-	<a asp-action="Checkout" asp-controller="ShoppingCart">Tiến hành đặt hàng</a>
-	<a asp-action="OrderList" asp-controller="ShoppingCart">Đơn hàng của bạn</a>
+    <a asp-action="Checkout" asp-controller="ShoppingCart">Tiến hành đặt hàng</a>
+    <span style="margin: 0 10px"></span> <!-- Khoảng cách ở đây -->
+    <a asp-action="OrderList" asp-controller="ShoppingCart">Đơn hàng của bạn</a>
 </div>

@@ -32,7 +32,7 @@ namespace CuaHangLinhKien.Controllers
             if (product == null)
             {
                 // Xử lý khi không tìm thấy sản phẩm
-                return RedirectToAction("Index", "Product");
+                return RedirectToAction("Index", "Home");
             }
 
             var cart = HttpContext.Session.GetObjectFromJson < ShoppingCart > ("Cart") ?? new ShoppingCart();
@@ -62,7 +62,7 @@ namespace CuaHangLinhKien.Controllers
             if (cart == null || !cart.Items.Any())
             {
                 // Xử lý giỏ hàng trống...
-                return RedirectToAction("Index", "Product");
+                return RedirectToAction("Index", "Home");
             }
 
             var user = await _userManager.GetUserAsync(User);
@@ -79,18 +79,23 @@ namespace CuaHangLinhKien.Controllers
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
             HttpContext.Session.Remove("Cart");
-            return RedirectToAction("OrderCompleted", new { orderId = order.Id });
+            return View("OrderCompleted", order.Id);
 
         }
 
-        public IActionResult OrderCompleted(int orderId)
+        public IActionResult OrderCompleted()
+        {
+            
+            return View();
+        }
+        public IActionResult OrderList(int orderId)
         {
             //Lấy thông tin đơn hàng từ cơ sở dữ liệu bằng orderId
             var order = _context.Orders.FirstOrDefault(o => o.Id == orderId);
             if (order == null)
             {
                 // Xử lý khi không tìm thấy đơn hàng
-                return RedirectToAction("Index", "Product");
+                return RedirectToAction("Index", "Home");
             }
             return View(order);
         }
@@ -98,11 +103,7 @@ namespace CuaHangLinhKien.Controllers
         public IActionResult RemoveFromCart(int productId)
         {
             var cart = HttpContext.Session.GetObjectFromJson<ShoppingCart>("Cart");
-            if (cart == null || !cart.Items.Any())
-            {
-                // Xử lý khi giỏ hàng trống
-                return RedirectToAction("Index", "Product");
-            }
+         
 
             // Tìm kiếm và loại bỏ sản phẩm khỏi giỏ hàng
             cart.RemoveItem(productId);

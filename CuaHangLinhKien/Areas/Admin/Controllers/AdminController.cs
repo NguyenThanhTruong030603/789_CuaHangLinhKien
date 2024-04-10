@@ -43,6 +43,8 @@ namespace CuaHangLinhKien.Areas.Admin.Controllers
             }
             return BadRequest("tao admin that bai");
         }
+
+
         public IActionResult Index()
         {
             return View();

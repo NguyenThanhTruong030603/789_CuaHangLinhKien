@@ -20,7 +20,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IProductRepository, EFProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, EFCategoryRepository>();
-
+builder.Services.AddScoped<IOrderRepository, EFOrderRepository>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
